@@ -31,7 +31,7 @@ def latlong ():
     	sum_longtitude += float(i[-2])
     avg_latitude = float(sum_latitude/n)
     avg_longitude = float(sum_longtitude/n)
-    print avg_latitude,avg_longitude
+    print (avg_latitude,avg_longitude)
 
 def hist():
     import matplotlib.pyplot as plt
