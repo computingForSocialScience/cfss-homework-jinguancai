@@ -19,30 +19,30 @@ def readEdgeList(filename):
 #readEdgeList('result2.csv')
 
 def degree(edgeList, in_or_out):
-	readEdgeList(edgeList)
+	#readEdgeList(edgeList)
 	if in_or_out is 'in':
 		#print type(readEdgeList(edgeList)[['artist2']])
 		#print readEdgeList(edgeList)['artist2'].value_counts(sort=True)
-		return readEdgeList(edgeList)['artist2'].value_counts(sort=True)
+		return edgeList['artist2'].value_counts(sort=True)
 	if in_or_out is 'out':
 		#print type(readEdgeList(edgeList)[['artist2']])
 		#print readEdgeList(edgeList)['artist1'].value_counts(sort=True)
-		return readEdgeList(edgeList)['artist1'].value_counts(sort=True)
+		return edgeList['artist1'].value_counts(sort=True)
 	else:
 		print "need to put in or out"
 
-#degree('result.csv','in')
-#degree('result2.csv','in')
+#degree(readEdgeList('result.csv'),'out')
+#degree(readEdgeList('result2.csv'),'out')
 
-def combineEdgelists(edgeList1,edgeList2):
+def combineEdgeLists(edgeList1,edgeList2):
 	#print type(edgeList1)
 	#print edgeList1
 	#print edgeList2
-	concatenated = pd.merge(edgeList1,edgeList2)
+	concatenated = pd.concat([edgeList1,edgeList2])
 	#print concatenated.drop_duplicates()
 	return concatenated.drop_duplicates()
 
-#combineEdgelists(readEdgeList('result.csv'),readEdgeList('result2.csv'))
+#combineEdgeLists(readEdgeList('result.csv'),readEdgeList('result2.csv'))
 
 def pandasToNetworkX(edgeList):
 	g = nx.DiGraph()
@@ -51,7 +51,7 @@ def pandasToNetworkX(edgeList):
 	#print g.nodes()
 	return g
 
-#pandasToNetworkX(combineEdgelists(readEdgeList('result.csv'),readEdgeList('result2.csv')))
+#pandasToNetworkX(combineEdgeLists(readEdgeList('result.csv'),readEdgeList('result2.csv')))
 
 def randomCentralNode(inputDigraph):
 	freqdict = nx.eigenvector_centrality(inputDigraph)
@@ -69,7 +69,8 @@ def randomCentralNode(inputDigraph):
 		new_total += new_freq_dict[i]
 	print new_total'''
 	result = np.random.choice(new_freq_dict.keys(), p=new_freq_dict.values())
-	print result
+	#print result
 	return  result
 
-#randomCentralNode(pandasToNetworkX(combineEdgelists(readEdgeList('result.csv'),readEdgeList('result2.csv'))))
+#randomCentralNode(pandasToNetworkX(combineEdgeLists(readEdgeList('result.csv'),readEdgeList('result2.csv'))))
+

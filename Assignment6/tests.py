@@ -18,7 +18,6 @@ def testRelatedArtists():
     # check the length of a random related Artist ID
     assert len(random.choice(rList)) == 22
 
-
 def testWriteEdgeList():
     rootId = '4EF5vIcCYKMM61oYOG2Tqa'
     writeEdgeList(rootId,2,'testEdgeList.csv')
@@ -39,7 +38,6 @@ def testWriteEdgeList():
     # check that there are no duplicate edges
     assert len(edges) == len(set(edges))
 
-
 def testDegree():
     df = readEdgeList('testEdgeList.csv')
 
@@ -49,8 +47,11 @@ def testDegree():
 
 def testCombineEdgeLists():
     baseDF = readEdgeList('testEdgeList.csv')
+    #print baseDF
     df1 = baseDF[0:100]
+    #print df1
     df2 = baseDF[50:150]
+    #print df2
     df1.columns = df2.columns
 
     comb = combineEdgeLists(df1,df2)
@@ -99,8 +100,8 @@ def testRandomCentralNode():
 
 def testMakePlaylist():
     os.system('python makePlaylist.py "КОФЕ"')
-
-    f = open('playlist.csv','r')
+    #os.system('python makePlaylist.py "Patti Smith"')
+    f = open('playlist.csv','r',encoding = 'utf-8')
     reader = unicodecsv.reader(f)
     header = reader.next()
     rows = []
