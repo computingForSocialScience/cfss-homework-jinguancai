@@ -1,0 +1,33 @@
+Measuring the trading patterns of Market Makers in stock market
+
+Wenyuan Jin
+
+The question I am going to explore in the final project is:
+What is the decision making process for market players (Market Makers in my case) 
+and how such decision could be reflected in the market.
+I plan to use clustering analysis to NASDAQ trading quotes data 
+to reverse-engineer the trading activities of the market makers.
+I will set my unit of analysis to be the market makers, 
+track the daily trading activities of each market maker,
+and use a k-means clustering method to perform a unsupervised learning
+to cluster these market makers into different type of players based on their activities.
+
+The data I will be using are from NASDAQ trading quotes data. The format is shown below:
+
+SYMBOL,DATE,TIME,BID,OFR,BIDSIZ,OFRSIZ,MODE,EX,MMID
+A,20060920,8:30:01,0,0,0,0,12,D,AUTO
+A,20060920,8:30:01,28,35,1,1,12,D,NAQS
+A,20060920,8:30:01,0,0,0,0,12,D,BRUT
+A,20060920,8:30:01,0,0,0,0,12,D,BTRD
+
+I plan to first divide the daily traidng hours into 30-min bins (9 to 9:30, 9:30 to 10, etc))
+Then I will use MMID(market maker ID) to target players and calculate 
+how much trading volume has he accomplished by the end of each bin.
+
+The next step data would be (For each Market Maker):
+bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10, ...
+0.05,0.15,0.24,0.33,0.34,0.46,0.51,0.57,0.68,0.72, ...
+
+Then I will use each bin as one dimension and run a K-means analysis to cluster 
+all market makers into different types of player.
+
