@@ -25,8 +25,8 @@ Then I will use MMID(market maker ID) to target players and calculate
 how much percentage of daily trading volume(size) has he accomplished by the end of each bin.
 
 The next step data would be:
-MMID,bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10, ...
-BRUT,0.05,0.15,0.24,0.33,0.34,0.46,0.51,0.57,0.68,0.72, ...
+MMID,bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10, ...,bin_last
+BRUT,0.05,0.15,0.24,0.33,0.34,0.46,0.51,0.57,0.68,0.72, ...,1.00
 
 Then I will use each bin as one dimension and run a K-means analysis to cluster 
 all market makers into different types of player.
