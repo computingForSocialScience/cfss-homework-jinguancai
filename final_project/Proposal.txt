@@ -22,7 +22,7 @@ A,20060920,8:30:01,0,0,0,0,12,D,BTRD
 
 I plan to first divide the daily traidng hours into 30-min bins (9 to 9:30, 9:30 to 10, etc))
 Then I will use MMID(market maker ID) to target players and calculate 
-how much trading volume(size) has he accomplished by the end of each bin.
+how much percentage of daily trading volume(size) has he accomplished by the end of each bin.
 
 The next step data would be (For each Market Maker):
 bin1,bin2,bin3,bin4,bin5,bin6,bin7,bin8,bin9,bin10, ...
