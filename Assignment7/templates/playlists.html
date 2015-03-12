@@ -1,0 +1,12 @@
+<html>
+ <head>
+ <h1>Playlists</h1>
+<ul>
+</head>
+<body>
+ {% for id,artist in playlists %}
+ <li>{{id}} <a href ="/playlist/{{id}}">{{artist}}</a>
+ {% endfor %}
+ </ul>
+</body>
+</html>
