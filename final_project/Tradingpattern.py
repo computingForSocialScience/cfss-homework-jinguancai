@@ -17,7 +17,7 @@ from sklearn.cluster import MeanShift
 from sklearn.datasets.samples_generator import make_blobs
 
 #set data directory
-directory = 'C:/Users/Jinguancai/Documents/UChicago/Thesis/Data/test/20060922.csv'
+directory = '20060922.csv'
 
 #set parameters
 DATE = directory[-12:-4]
@@ -28,7 +28,7 @@ min_volume = 100
 #BIDOFR = 'BIDSIZ'
 BIDOFR = 'OFRSIZ'
 ini_colors = 10*['r','g','b','c','k','y','m']
-k = 5 #for k means
+
 
 
 """function that readdata into dataframe"""
@@ -124,13 +124,13 @@ def MeanShiftClassification(data):
     #print ("Number of estimated clusters:",n_clusters_)
     return {'cluster_centers':cluster_centers,'labels':labels,'n':n_clusters_}
 
-def graph_Meanshift_Result(data,filename,labels,ini_colors):
+def graph_Result(data,filename,labels,ini_colors,method):
     colors = [ini_colors[i] for i in labels ]
     #print colors
     y= data.transpose()
     y.plot(color=colors)
     plt.legend(loc='lower right')
-    plt.title("Trading Volume Line for %s after MeanShift Classification" %(filename))
+    plt.title("Trading Volume Line for %s after %s Classification" %(filename,method))
     plt.show()
     #plt.savefig('%s.jpg' % (filename))
 
@@ -140,22 +140,14 @@ def Kmeansclustering(data,k):
      #print idx
      #print centriods, _
      return {'centriods':centriods,'labels':idx}
-def graph_Kmeans_result(data,filename,labels,ini_colors):
-    colors = [ini_colors[i] for i in labels ]
-    #print colors
-    y= data.transpose()
-    y.plot(color=colors)
-    plt.legend(loc='lower right')
-    plt.title("Trading Volume Line for %s after Kmeans Clustering" %(filename))
-    plt.show()
-    #plt.savefig('%s.jpg' % (filename))
+
 def graph_patterns(cluster_centers,filename):
     pattern = {}
     j = 1
     for i in cluster_centers.tolist():
         pattern['pattern %s'%(j)]=i
         j += 1
-    y = pd.DataFrame(pattern)
+    y = pd.DataFrame(pattern,index=time_column)
     y.plot()
     plt.legend(loc='lower right')
     plt.title("Pattern for %s" %(filename))
@@ -171,15 +163,21 @@ time_column = create_time_bins(ini_time,stop_time,delta)
 mminfo_cum_df = pd.DataFrame.from_dict(mminfo_cum, orient="index")
 mminfo_cum_df.columns = time_column 
 graph_trading_lines(mminfo_cum_df,DATE)
+
+"""Kmeans Method"""
+#k = 3 #k for k means
 #labels = Kmeansclustering(mminfo_cum_df,k)['labels']
-#graph_Kmeans_result(mminfo_cum_df,DATE,labels,ini_colors)
+#graph_Result(mminfo_cum_df,DATE,labels,ini_colors,'KMeans')
+#cluster_centers = Kmeansclustering(mminfo_cum_df,k)['centriods']
+#graph_patterns(cluster_centers,'KMeans')
+
+"Meanshift Method"
 cluster_centers = MeanShiftClassification(mminfo_cum_df)['cluster_centers']
+graph_Result(mminfo_cum_df,DATE,labels,ini_colors,'Meanshift')
 labels = MeanShiftClassification(mminfo_cum_df)['labels']
-graph_Meanshift_Result(mminfo_cum_df,DATE,labels,ini_colors)
-graph_patterns(cluster_centers,'pattern')
+graph_patterns(cluster_centers,'MeanShift')
 
 
 
 #exportmminfodata(mminfo_cum_df,DATE)
-#graph_trading_lines(mminfo_cum_df,DATE)
 #print mminfo_cum_df.values
